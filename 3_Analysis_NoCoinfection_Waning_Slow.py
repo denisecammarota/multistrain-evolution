@@ -16,13 +16,13 @@ from PCI_Mut_nocoinf_waning import PCI_Mut_nocoinf_waning
 # Parameters for simulation
 pars = {}
 pars['nv'] = 100     # number of variants 
-mu =  (1./(80*365))  
-gamma = (1./(20*365))                                     
+mu =  (1./(80))  
+gamma = (1./(20))                                     
 pars['mu'] = (mu) * np.ones(pars['nv'])                     # demography
 pars['gamma']= np.linspace(1.0, 1.0, pars['nv'])*gamma                # recovery rate (1/days)
 pars['beta'] = np.linspace(1.0, 4.0, pars['nv'])*pars['gamma'] # feasible betas
 pars['basR0'] = pars['beta']/(pars['gamma']+ mu)                   # R0 number 
-pars['omega'] = (1./(40*365))*np.ones(pars['nv'])  # waning immunity value
+pars['omega'] = (1./(40))*np.ones(pars['nv'])  # waning immunity value
                     
 # Cross-immunity matrix calculation
 pars['sigma'] = np.zeros((pars['nv'], pars['nv']))
@@ -56,7 +56,7 @@ x0[2*pars['nv'] :] = pars['R0']
 # Solving with different hypotesis
 
 ## With coinfection (original models)
-t = np.arange(0.0, 400*365, 1)
+t = np.arange(0.0, 80*40, 0.1)
 sol1 = odeint(PCI_Mut_nocoinf_waning, x0, t, args =(pars,))
 
 ### Visualization 1
@@ -189,4 +189,15 @@ plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
 #plt.yticks(np.arange(10,110,10), labels = np.round(np.linspace(1.0, 4.0, 10)*gamma/(gamma+mu),1))
 plt.savefig('figs/3_DomStrain_R0_40_slow.pdf')
+plt.show()
+
+# Visualization 6: Endemic equilibrium abundance 
+plt.figure(figsize = (10,8))
+prop_plot = np.mean(fracStrains[:,-500:],axis = 1)
+plt.plot(pars['basR0'],prop_plot, linewidth = 3, color = 'blue')
+plt.ylabel('Strain frequency', fontsize = 18)
+plt.xlabel(r'$R_0$', fontsize = 20)
+plt.xticks(fontsize = 16)
+plt.yticks(fontsize = 16)
+plt.savefig('figs/3_Endemic_40_2_slow.pdf')
 plt.show()
