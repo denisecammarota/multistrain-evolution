@@ -59,6 +59,7 @@ t = np.arange(0.0, 80*40, 0.1)
 sol1 = odeint(Strains_CI_mut_nocoinf, x0, t, args =(pars,))
 
 ### Visualization 1
+cmap = 'hsv'
 plt.figure(figsize=(10,8))
 for i in range(pars['nv']):
     #plt.plot(t, sol[:, i], label = '$S_{%i}$' % i)
@@ -96,7 +97,7 @@ for j in range(pars['nv']):
     St[j] = sol1[:, j]
     It[j] = sol1[:, pars['nv']+j]
     
-cmap = 'inferno'
+
 for i in range(pars['nv']):
     plt.fill_between(t, 0, np.sum(It[i:], axis=0)/np.sum(It, axis=0),
                      color = sns.color_palette(cmap, pars['nv'])[i],
