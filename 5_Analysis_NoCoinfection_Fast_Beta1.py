@@ -27,7 +27,8 @@ mu =  (1./(80*365))
 pars['mu'] = (mu) * np.ones(pars['nv'])                     # demography
 pars['gamma']= np.linspace(0.1, 0.1, pars['nv'])                # recovery rate (1/days)
 pars['beta'] = quad_beta_positive(np.arange(0,100,1))*pars['gamma'] # feasible betas
-pars['basR0'] = pars['beta']/(pars['gamma']+ mu)                   # R0 number 
+pars['basR0'] = pars['beta']/(pars['gamma']+ mu)                   # R0 number
+
 
 # Cross-immunity matrix calculation
 pars['sigma'] = np.zeros((pars['nv'], pars['nv']))
@@ -74,7 +75,7 @@ plt.xlabel('Time (days)', fontsize = 18)
 plt.ylabel(r'$I_i$', fontsize = 18)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
-plt.savefig('figs/5_EpiCurves_fast.pdf')
+plt.savefig('figs/5_EpiCurves_fast_beta1.pdf')
 plt.show()
 
 plt.figure(figsize=(10,8))
@@ -87,7 +88,7 @@ plt.xlabel('Time (days)', fontsize = 18)
 plt.ylabel(r'$S_i$', fontsize = 18)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
-plt.savefig('figs/5_SusceptibleCurves_fast.pdf')
+plt.savefig('figs/5_SusceptibleCurves_fast_beta1.pdf')
 plt.show()
 
 
@@ -111,7 +112,7 @@ plt.xlabel('Time (days)', fontsize = 18)
 plt.ylabel(r'$\frac{I_i}{I_T}$', fontsize = 18, rotation = 0, labelpad=16)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
-plt.savefig('figs/5_FreqCurves_fast.pdf')
+plt.savefig('figs/5_FreqCurves_fast_beta1.pdf')
 plt.show()
 #plt.legend()
 
@@ -131,7 +132,7 @@ ax2 = ax1.twinx()
 ax2.plot(t, entropy_It, color='red', linewidth = 3)
 ax2.set_ylabel(r'$S_t$', color = 'red',fontsize = 18)
 ax2.tick_params(axis='y', labelcolor='red', labelsize=16)
-plt.savefig('figs/5_Infecteds_fast.pdf')
+plt.savefig('figs/5_Infecteds_fast_beta1.pdf')
 plt.show()
 
 # And now number of strains alone
@@ -141,7 +142,7 @@ ax1.set_xlabel('Time (days)', fontsize = 18)
 ax1.tick_params(axis='x',labelsize = 16)
 ax1.set_ylabel(r'$N_t$',fontsize = 20)
 ax1.tick_params(axis='y',labelsize=16)
-plt.savefig('figs/5_NumberStrains_fast.pdf')
+plt.savefig('figs/5_NumberStrains_fast_beta1.pdf')
 plt.show()
 
 
@@ -176,7 +177,7 @@ plt.ylabel(r'$R_0$', fontsize = 18)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
 plt.legend(fontsize = 16)
-plt.savefig('figs/5_ValuesR0_fast.pdf')
+plt.savefig('figs/5_ValuesR0_fast_beta1.pdf')
 plt.show()
 
 
@@ -192,5 +193,5 @@ plt.ylabel(r'$R_0$', fontsize = 20)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
 #plt.yticks(np.arange(10,110,10), labels = quad_beta_positive(np.linspace(10, 110, 10))*0.1/(0.1+mu))
-plt.savefig('figs/5_DomStrain_R0_fast.pdf')
+plt.savefig('figs/5_DomStrain_R0_fast_beta1.pdf')
 plt.show()
