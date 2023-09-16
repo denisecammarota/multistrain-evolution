@@ -55,7 +55,7 @@ x0[2*pars['nv'] :] = pars['R0']
 # Solving with different hypotesis
 
 ## With coinfection (original models)
-t = np.arange(0.0, 1200, 0.1)
+t = np.arange(0.0, 365*90, 1)
 sol1 = odeint(PCI_Mut_nocoinf_waning, x0, t, args =(pars,))
 
 ### Visualization 1
@@ -70,7 +70,7 @@ plt.xlabel('Time (days)', fontsize = 18)
 plt.ylabel(r'$I_i$', fontsize = 18)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
-plt.savefig('figs/3_EpiCurves_0p5_2_fast.pdf')   
+plt.savefig('figs/3_EpiCurves_0p5_fast.pdf')   
 plt.show()
 
 plt.figure(figsize=(10,8))
@@ -83,7 +83,7 @@ plt.xlabel('Time (days)', fontsize = 18)
 plt.ylabel(r'$S_i$', fontsize = 18)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
-plt.savefig('figs/3_SusceptibleCurves_0p5_2_fast.pdf')
+plt.savefig('figs/3_SusceptibleCurves_0p5_fast.pdf')
 plt.show()
 
 
@@ -106,7 +106,7 @@ plt.xlabel('Time (days)', fontsize = 18)
 plt.ylabel(r'$\frac{I_i}{I_T}$', fontsize = 18, rotation = 0, labelpad=16)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
-plt.savefig('figs/3_FreqCurves_0p5_2_fast.pdf')
+plt.savefig('figs/3_FreqCurves_0p5_fast.pdf')
 plt.show()
 #plt.legend()
 
@@ -116,6 +116,7 @@ It_bin = (It > 10**-6)
 It_sum = It_bin.sum(axis = 0)
 freq_It = (It/np.sum(It, axis=0))
 freq_It[freq_It < 0] = 0
+N_fin = np.mean(It_sum[-1000:])
 entropy_It = entropy(freq_It)
 ax1.plot(t,np.sum(It, axis=0), color = 'blue', linewidth = 3)
 ax1.set_xlabel('Time (days)', fontsize = 18)
@@ -127,7 +128,10 @@ ax2 = ax1.twinx()
 ax2.plot(t, entropy_It, color='red', linewidth = 3)
 ax2.set_ylabel(r'$S_t$', color = 'red',fontsize = 18)
 ax2.tick_params(axis='y', labelcolor='red', labelsize=16)
-plt.savefig('figs/3_Infecteds_0p5_2_fast.pdf')
+ax2.axhline(y = np.log(100), linestyle='--', linewidth = 3, color = 'red', label = 'log(N)')
+ax2.axhline(y = np.log(N_fin), linestyle='-.', linewidth = 3, color = 'red', label = 'log(Nf)')
+plt.legend(fontsize = 16)
+plt.savefig('figs/3_Infecteds_0p5_fast.pdf')
 plt.show()
 
 # And now number of strains alone
@@ -137,7 +141,7 @@ ax1.set_xlabel('Time (days)', fontsize = 18)
 ax1.tick_params(axis='x',labelsize = 16)
 ax1.set_ylabel(r'$N_t$',fontsize = 20)
 ax1.tick_params(axis='y',labelsize=16)
-plt.savefig('figs/3_NumberStrains_0p5_2_fast.pdf')
+plt.savefig('figs/3_NumberStrains_0p5_fast.pdf')
 plt.show()
 
 
@@ -172,7 +176,7 @@ plt.ylabel(r'$R_0$', fontsize = 18)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
 plt.legend(fontsize = 16)
-plt.savefig('figs/3_ValuesR0_0p5_2_fast.pdf')
+plt.savefig('figs/3_ValuesR0_0p5_fast.pdf')
 plt.show()
 
 
@@ -188,7 +192,7 @@ plt.ylabel(r'$R_0$', fontsize = 20)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
 plt.yticks(np.arange(10,110,10), labels = np.round(np.linspace(1.0, 4.0, 10)*0.1/(0.1+mu),1))
-plt.savefig('figs/3_DomStrain_R0_0p5_2_fast.pdf')
+plt.savefig('figs/3_DomStrain_R0_0p5_fast.pdf')
 plt.show()
 
 # Visualization 6: Endemic equilibrium abundance 
@@ -199,5 +203,5 @@ plt.ylabel('Strain frequency', fontsize = 18)
 plt.xlabel(r'$R_0$', fontsize = 20)
 plt.xticks(fontsize = 16)
 plt.yticks(fontsize = 16)
-plt.savefig('figs/3_Endemic_0p5_2_fast.pdf')
+plt.savefig('figs/3_Endemic_0p5_fast.pdf')
 plt.show()

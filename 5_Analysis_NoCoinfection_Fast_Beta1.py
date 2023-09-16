@@ -132,6 +132,8 @@ ax2 = ax1.twinx()
 ax2.plot(t, entropy_It, color='red', linewidth = 3)
 ax2.set_ylabel(r'$S_t$', color = 'red',fontsize = 18)
 ax2.tick_params(axis='y', labelcolor='red', labelsize=16)
+ax2.axhline(y = np.log(100), linestyle='--', linewidth = 3, color = 'red', label = 'log(N)')
+plt.legend(fontsize = 16)
 plt.savefig('figs/5_Infecteds_fast_beta1.pdf')
 plt.show()
 
